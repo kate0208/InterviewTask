@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainTabFragment">
+    <fragment
+        android:id="@+id/mainTabFragment"
+        android:name="com.kate.interviewtask.MainTabFragment"
+        android:label="MainTabFragment">
+        <action
+            android:id="@+id/action_mainTabFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.kate.interviewtask.InfoFragment"
+        android:label="InfoFragment">
+        <action
+            android:id="@+id/action_infoFragment_to_imageViewerFragment"
+            app:destination="@id/imageViewerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageViewerFragment"
+        android:name="com.kate.interviewtask.ImageViewerFragment"
+        android:label="ImageViewerFragment" />
+</navigation>
