@@ -12,7 +12,7 @@ import retrofit2.http.GET
 private const val BASE_URL = "https://raw.githubusercontent.com"
 
 private val interceptor = HttpLoggingInterceptor().apply {
-    setLevel(HttpLoggingInterceptor.Level.BODY)
+//    setLevel(HttpLoggingInterceptor.Level.BODY)
 }
 private val client = OkHttpClient.Builder()
     .addInterceptor(interceptor)
@@ -30,8 +30,7 @@ private val retrofit = Retrofit.Builder()
 
 interface SourceService {
     @GET("robert0ng/NasaDataSet/main/apod.json")
-    suspend fun getSource(
-    ): List<SourceModel>
+    suspend fun getSource(): List<SourceModel>
 
 }
 

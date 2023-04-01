@@ -6,10 +6,10 @@ import com.kate.interviewtask.model.SourceModel
 
 @Dao
 interface SourceDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(source: SourceModel)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(sources: List<SourceModel>)
 
     @Update

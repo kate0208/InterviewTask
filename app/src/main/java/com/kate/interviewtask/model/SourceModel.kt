@@ -9,10 +9,11 @@ data class SourceModel(
     val description: String,
     val copyright: String,
     val title: String,
-    @PrimaryKey
     val url: String,
+    @PrimaryKey
     val date: String,
     val hdurl: String,
     @Json(name = "apod_site") val apodSite: String,
-    @Json(name = "media_type") val mediaType: String
+    @Json(name = "media_type") val mediaType: String,
+    val fav: Boolean = false
 )
