@@ -21,6 +21,13 @@ class MainTabFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.viewpager.adapter = MainTabAdapter(childFragmentManager)
+        binding.tabLayout.setupWithViewPager(binding.viewpager)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
