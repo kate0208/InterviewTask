@@ -18,8 +18,8 @@ interface SourceDao {
     @Delete
     suspend fun delete(source: SourceModel)
 
-    @Query("SELECT * FROM source WHERE url = :url")
-    fun get(url: String): LiveData<SourceModel>
+    @Query("SELECT * FROM source WHERE date = :date")
+    fun get(date: String): LiveData<SourceModel>
 
     @Query("SELECT * FROM source")
     fun getAll(): LiveData<List<SourceModel>>
