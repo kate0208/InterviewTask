@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.kate.interviewtask.databinding.FragmentInfoBinding
 import com.kate.interviewtask.viewmodel.InfoViewModel
@@ -38,6 +39,14 @@ class InfoFragment : Fragment() {
                 binding.copyright.text = it.copyright
             }
         })
+
+        binding.image.setOnClickListener {
+            val date = viewModel.source.value?.date ?: return@setOnClickListener
+
+            val action =
+                InfoFragmentDirections.actionInfoFragmentToImageViewerFragment(date)
+            view.findNavController().navigate(action)
+        }
     }
 
 

@@ -25,5 +25,9 @@
     <fragment
         android:id="@+id/imageViewerFragment"
         android:name="com.kate.interviewtask.fragment.ImageViewerFragment"
-        android:label="ImageViewerFragment" />
+        android:label="ImageViewerFragment">
+        <argument
+            android:name="primaryKey"
+            app:argType="string" />
+    </fragment>
 </navigation>
