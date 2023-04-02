@@ -9,23 +9,23 @@ import com.bumptech.glide.Glide
 import com.kate.interviewtask.databinding.SourceItemBinding
 import com.kate.interviewtask.model.SourceModel
 
-class MainAdapter(private val favListener: (SourceModel) -> Unit) :
-    ListAdapter<SourceModel, ItemViewHolder>(MainDiffUtil()) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+class FavAdapter(private val favListener: (SourceModel) -> Unit) :
+    ListAdapter<SourceModel, FavItemViewHolder>(FavDiffUtil()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavItemViewHolder {
         val itemBinding = SourceItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return ItemViewHolder(itemBinding, favListener)
+        return FavItemViewHolder(itemBinding, favListener)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
     }
 
 }
 
-class ItemViewHolder(
+class FavItemViewHolder(
     private val binding: SourceItemBinding,
     private val favListener: (SourceModel) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -48,7 +48,7 @@ class ItemViewHolder(
 
 }
 
-class MainDiffUtil : DiffUtil.ItemCallback<SourceModel>() {
+class FavDiffUtil : DiffUtil.ItemCallback<SourceModel>() {
     override fun areItemsTheSame(oldItem: SourceModel, newItem: SourceModel): Boolean {
         return oldItem.date == newItem.date
     }

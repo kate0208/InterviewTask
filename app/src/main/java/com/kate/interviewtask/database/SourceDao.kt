@@ -23,4 +23,7 @@ interface SourceDao {
 
     @Query("SELECT * FROM source")
     fun getAll(): LiveData<List<SourceModel>>
+
+    @Query("SELECT * FROM source WHERE fav = 1")
+    fun getAllFav(): LiveData<List<SourceModel>>
 }

@@ -29,7 +29,7 @@ class MainFragment : Fragment() {
         val adapter = MainAdapter {
             viewModel.updateFav(it)
         }
-        binding.tasksList.adapter = adapter
+        binding.recycler.adapter = adapter
         viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
