@@ -1,4 +1,4 @@
-package com.kate.interviewtask
+package com.kate.interviewtask.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,13 +9,16 @@ import com.bumptech.glide.Glide
 import com.kate.interviewtask.databinding.SourceItemBinding
 import com.kate.interviewtask.model.SourceModel
 
-class FavAdapter(private val favListener: (SourceModel) -> Unit) :
+class FavAdapter(
+    private val favListener: (SourceModel) -> Unit,
+    private val imageListener: (SourceModel) -> Unit
+) :
     ListAdapter<SourceModel, FavItemViewHolder>(FavDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavItemViewHolder {
         val itemBinding = SourceItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return FavItemViewHolder(itemBinding, favListener)
+        return FavItemViewHolder(itemBinding, favListener, imageListener)
     }
 
     override fun onBindViewHolder(holder: FavItemViewHolder, position: Int) {
@@ -27,7 +30,8 @@ class FavAdapter(private val favListener: (SourceModel) -> Unit) :
 
 class FavItemViewHolder(
     private val binding: SourceItemBinding,
-    private val favListener: (SourceModel) -> Unit
+    private val favListener: (SourceModel) -> Unit,
+    private val imageListener: (SourceModel) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: SourceModel) {
@@ -37,6 +41,10 @@ class FavItemViewHolder(
 
         binding.button.setOnClickListener {
             favListener(item)
+        }
+
+        binding.image.setOnClickListener {
+            imageListener(item)
         }
 
         if (item.fav) {

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.kate.interviewtask.FavAdapter
+import com.kate.interviewtask.adapter.FavAdapter
 import com.kate.interviewtask.databinding.FragmentFavBinding
 import com.kate.interviewtask.viewmodel.FavViewModel
 
@@ -27,9 +27,11 @@ class FavFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = FavAdapter {
+        val adapter = FavAdapter({
             viewModel.updateFav(it)
-        }
+        }, {
+            //TODO go to infofragment
+        })
         binding.recycler.adapter = adapter
         viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
