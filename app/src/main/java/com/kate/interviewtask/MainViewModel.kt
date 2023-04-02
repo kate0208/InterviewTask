@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.kate.interviewtask.database.SourceDao
 import com.kate.interviewtask.database.SourceDatabase
+import com.kate.interviewtask.model.SourceModel
 import com.kate.interviewtask.network.SourceApi
 import com.kate.interviewtask.network.SourceService
 import kotlinx.coroutines.launch
@@ -22,6 +23,17 @@ class MainViewModel(private val dao: SourceDao, private val service: SourceServi
             dao.insertAll(list)
         }
     }
+
+    fun updateFav(sourceModel: SourceModel) {
+        viewModelScope.launch {
+            val favValue = sourceModel.copy(
+                fav = !sourceModel.fav
+            )
+            dao.update(favValue)
+        }
+
+    }
+
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

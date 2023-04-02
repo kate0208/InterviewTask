@@ -26,7 +26,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MainAdapter()
+        val adapter = MainAdapter {
+            viewModel.updateFav(it)
+        }
         binding.tasksList.adapter = adapter
         viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)

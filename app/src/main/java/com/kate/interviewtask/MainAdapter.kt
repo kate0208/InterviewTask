@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kate.interviewtask.databinding.SourceItemBinding
 import com.kate.interviewtask.model.SourceModel
 
-class MainAdapter : ListAdapter<SourceModel, TaskItemViewHolder>(MainDiffUtil()) {
+class MainAdapter(private val favListener: (SourceModel) -> Unit) :
+    ListAdapter<SourceModel, TaskItemViewHolder>(MainDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
         val itemBinding = SourceItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return TaskItemViewHolder(itemBinding)
+        return TaskItemViewHolder(itemBinding, favListener)
     }
 
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
@@ -23,10 +24,17 @@ class MainAdapter : ListAdapter<SourceModel, TaskItemViewHolder>(MainDiffUtil())
 
 }
 
-class TaskItemViewHolder(private val binding: SourceItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class TaskItemViewHolder(
+    private val binding: SourceItemBinding,
+    private val favListener: (SourceModel) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(item: SourceModel) {
         binding.name.text = item.title
+
+        binding.button.setOnClickListener {
+            favListener(item)
+        }
 
         if (item.fav) {
             binding.button.text = "移除最愛"
@@ -34,6 +42,7 @@ class TaskItemViewHolder(private val binding: SourceItemBinding) :
             binding.button.text = "加入最愛"
         }
     }
+
 }
 
 class MainDiffUtil : DiffUtil.ItemCallback<SourceModel>() {
