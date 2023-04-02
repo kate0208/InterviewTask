@@ -1,4 +1,4 @@
-package com.kate.interviewtask
+package com.kate.interviewtask.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.kate.interviewtask.databinding.FragmentMainTabBinding
+import com.kate.interviewtask.pager.MainTabAdapter
 
 class MainTabFragment : Fragment() {
     private var _binding: FragmentMainTabBinding? = null

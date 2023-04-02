@@ -1,4 +1,4 @@
-package com.kate.interviewtask
+package com.kate.interviewtask.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.kate.interviewtask
+package com.kate.interviewtask.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,9 +13,9 @@ import com.kate.interviewtask.network.SourceApi
 import com.kate.interviewtask.network.SourceService
 import kotlinx.coroutines.launch
 
-class FavViewModel(private val dao: SourceDao, private val service: SourceService) : ViewModel() {
+class MainViewModel(private val dao: SourceDao, private val service: SourceService) : ViewModel() {
 
-    val sourceLivedata = dao.getAllFav()
+    val sourceLivedata = dao.getAll()
 
     fun updateSource() {
         viewModelScope.launch {
@@ -41,7 +41,7 @@ class FavViewModel(private val dao: SourceDao, private val service: SourceServic
                 val application = requireNotNull(this[APPLICATION_KEY])
                 val dao = SourceDatabase.getInstance(application).sourceDao
                 val service = SourceApi.sourceService
-                FavViewModel(dao, service)
+                MainViewModel(dao, service)
             }
         }
     }

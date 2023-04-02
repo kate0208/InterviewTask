@@ -1,4 +1,4 @@
-package com.kate.interviewtask
+package com.kate.interviewtask.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.kate.interviewtask.FavAdapter
 import com.kate.interviewtask.databinding.FragmentFavBinding
+import com.kate.interviewtask.viewmodel.FavViewModel
 
 class FavFragment : Fragment() {
     private var _binding: FragmentFavBinding? = null

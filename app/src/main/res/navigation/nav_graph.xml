@@ -5,7 +5,7 @@
     app:startDestination="@id/mainTabFragment">
     <fragment
         android:id="@+id/mainTabFragment"
-        android:name="com.kate.interviewtask.MainTabFragment"
+        android:name="com.kate.interviewtask.fragment.MainTabFragment"
         android:label="MainTabFragment">
         <action
             android:id="@+id/action_mainTabFragment_to_infoFragment"
@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.kate.interviewtask.InfoFragment"
+        android:name="com.kate.interviewtask.fragment.InfoFragment"
         android:label="InfoFragment">
         <action
             android:id="@+id/action_infoFragment_to_imageViewerFragment"
@@ -21,6 +21,6 @@
     </fragment>
     <fragment
         android:id="@+id/imageViewerFragment"
-        android:name="com.kate.interviewtask.ImageViewerFragment"
+        android:name="com.kate.interviewtask.fragment.ImageViewerFragment"
         android:label="ImageViewerFragment" />
 </navigation>
