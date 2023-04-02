@@ -1,0 +1,48 @@
+package com.kate.interviewtask
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.kate.interviewtask.databinding.SourceItemBinding
+import com.kate.interviewtask.model.SourceModel
+
+class MainAdapter : ListAdapter<SourceModel, TaskItemViewHolder>(MainDiffUtil()) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
+        val itemBinding = SourceItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return TaskItemViewHolder(itemBinding)
+    }
+
+    override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
+    }
+
+}
+
+class TaskItemViewHolder(private val binding: SourceItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: SourceModel) {
+        binding.name.text = item.title
+
+        if (item.fav) {
+            binding.button.text = "移除最愛"
+        } else {
+            binding.button.text = "加入最愛"
+        }
+    }
+}
+
+class MainDiffUtil : DiffUtil.ItemCallback<SourceModel>() {
+    override fun areItemsTheSame(oldItem: SourceModel, newItem: SourceModel): Boolean {
+        return oldItem.date == newItem.date
+    }
+
+    override fun areContentsTheSame(oldItem: SourceModel, newItem: SourceModel): Boolean {
+        return oldItem == newItem
+    }
+
+}
