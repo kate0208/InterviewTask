@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.kate.interviewtask.adapter.MainAdapter
 import com.kate.interviewtask.databinding.FragmentMainBinding
 import com.kate.interviewtask.viewmodel.MainViewModel
@@ -31,7 +32,9 @@ class MainFragment : Fragment() {
         val adapter = MainAdapter({
             viewModel.updateFav(it)
         }, {
-            //TODO go to infofragment
+            val action =
+                MainTabFragmentDirections.actionMainTabFragmentToInfoFragment(it.date)
+            view.findNavController().navigate(action)
         })
         binding.recycler.adapter = adapter
         viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {

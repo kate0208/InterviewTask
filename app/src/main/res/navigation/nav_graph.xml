@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_infoFragment_to_imageViewerFragment"
             app:destination="@id/imageViewerFragment" />
+        <argument
+            android:name="primaryKey"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/imageViewerFragment"

@@ -34,7 +34,6 @@ class MainViewModel(private val dao: SourceDao, private val service: SourceServi
 
     }
 
-
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
