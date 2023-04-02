@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">interviewTask</string>
+    <string name="app_name">將來銀行面試作業</string>
+    <string name="main">首頁</string>
+    <string name="info">圖片介紹頁</string>
+
+
 </resources>
