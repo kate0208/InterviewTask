@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kate.interviewtask.databinding.SourceItemBinding
 import com.kate.interviewtask.model.SourceModel
 
@@ -30,7 +31,9 @@ class TaskItemViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: SourceModel) {
-        binding.name.text = item.title
+        Glide.with(binding.image)
+            .load(item.url)
+            .into(binding.image)
 
         binding.button.setOnClickListener {
             favListener(item)
