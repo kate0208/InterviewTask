@@ -8,19 +8,24 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.kate.interviewtask.database.SourceDao
 import com.kate.interviewtask.database.SourceDatabase
-import com.kate.interviewtask.model.SourceModel
+import com.kate.interviewtask.network.SourceApi
+import com.kate.interviewtask.network.SourceService
 import kotlinx.coroutines.launch
 
-class FavViewModel(private val dao: SourceDao) : ViewModel() {
+class MainTabViewModel(private val dao: SourceDao, private val service: SourceService) :
+    ViewModel() {
 
-    val sourceLivedata = dao.getAllFav()
+    val allCountLivedata = dao.getAllCount()
+    val allFavCountLivedata = dao.getAllFavCount()
 
-    fun updateFav(sourceModel: SourceModel) {
+    init {
+        updateSource()
+    }
+
+    private fun updateSource() {
         viewModelScope.launch {
-            val favValue = sourceModel.copy(
-                fav = !sourceModel.fav
-            )
-            dao.update(favValue)
+            val list = service.getSource()
+            dao.insertAll(list)
         }
     }
 
@@ -29,7 +34,8 @@ class FavViewModel(private val dao: SourceDao) : ViewModel() {
             initializer {
                 val application = requireNotNull(this[APPLICATION_KEY])
                 val dao = SourceDatabase.getInstance(application).sourceDao
-                FavViewModel(dao)
+                val service = SourceApi.sourceService
+                MainTabViewModel(dao, service)
             }
         }
     }

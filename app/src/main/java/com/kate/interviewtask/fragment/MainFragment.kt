@@ -40,7 +40,7 @@ class MainFragment : Fragment() {
         viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
-        viewModel.updateSource()
+
     }
 
 

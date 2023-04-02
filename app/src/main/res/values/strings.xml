@@ -2,6 +2,7 @@
     <string name="app_name">將來銀行面試作業</string>
     <string name="main">首頁</string>
     <string name="info">圖片介紹頁</string>
-
+    <string name="main_tab">所有圖片(%1$s)</string>
+    <string name="fav_tab">我的最愛(%1$s)</string>
 
 </resources>

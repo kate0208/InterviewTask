@@ -39,7 +39,7 @@ class FavFragment : Fragment() {
         viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
-        viewModel.updateSource()
+
     }
 
     override fun onDestroyView() {
