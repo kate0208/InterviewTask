@@ -1,12 +1,17 @@
 package com.kate.interviewtask.fragment
 
+import android.app.DownloadManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,6 +21,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.kate.interviewtask.databinding.FragmentImageViewerBinding
 import com.kate.interviewtask.viewmodel.ImageViewerViewModel
+import java.io.File
 
 
 class ImageViewerFragment : Fragment() {
@@ -57,6 +63,34 @@ class ImageViewerFragment : Fragment() {
 
             }
         })
+        binding.download.setOnClickListener {
+            val hdurl = viewModel.source.value?.hdurl ?: return@setOnClickListener
+            downloadTask(hdurl)
+        }
+    }
+
+    private fun downloadTask(url: String): Boolean {
+        if (!url.startsWith("http")) {
+            return false
+        }
+        val name = url.substring(url.lastIndexOf('/') + 1, url.length)
+        try {
+            val file = File(Environment.getExternalStorageDirectory(), "Download")
+            if (!file.exists()) {
+                file.mkdirs()
+            }
+            val result = File(file.absolutePath + File.separator + name)
+            val downloadManager = getSystemService(requireContext(), DownloadManager::class.java)
+            val request = DownloadManager.Request(Uri.parse(url))
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE or DownloadManager.Request.NETWORK_WIFI)
+            request.setDestinationUri(Uri.fromFile(result))
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            downloadManager?.enqueue(request)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     override fun onDestroyView() {

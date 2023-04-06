@@ -6,5 +6,6 @@
     <string name="fav_tab">我的最愛(%1$s)</string>
     <string name="fav_remove">移除最愛</string>
     <string name="fav_add">加入最愛</string>
+    <string name="download">DOWNLOAD</string>
 
 </resources>
