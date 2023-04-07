@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.kate.interviewtask.adapter.MainAdapter
 import com.kate.interviewtask.databinding.FragmentMainBinding
 import com.kate.interviewtask.viewmodel.MainViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -37,10 +39,11 @@ class MainFragment : Fragment() {
             view.findNavController().navigate(action)
         })
         binding.recycler.adapter = adapter
-        viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.sourceFlow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
     }
 
 

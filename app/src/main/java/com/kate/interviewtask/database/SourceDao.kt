@@ -1,6 +1,7 @@
 package com.kate.interviewtask.database
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.kate.interviewtask.model.SourceModel
 
@@ -22,13 +23,13 @@ interface SourceDao {
     fun get(date: String): LiveData<SourceModel>
 
     @Query("SELECT * FROM source")
-    fun getAll(): LiveData<List<SourceModel>>
+    fun getAll(): PagingSource<Int, SourceModel>
 
     @Query("SELECT COUNT(*) FROM source")
     fun getAllCount(): LiveData<Int>
 
     @Query("SELECT * FROM source WHERE fav = 1")
-    fun getAllFav(): LiveData<List<SourceModel>>
+    fun getAllFav(): PagingSource<Int, SourceModel>
 
     @Query("SELECT COUNT(*) FROM source WHERE fav = 1")
     fun getAllFavCount(): LiveData<Int>

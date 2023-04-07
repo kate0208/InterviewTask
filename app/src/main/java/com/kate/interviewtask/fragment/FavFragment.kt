@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.kate.interviewtask.adapter.FavAdapter
 import com.kate.interviewtask.databinding.FragmentFavBinding
 import com.kate.interviewtask.viewmodel.FavViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class FavFragment : Fragment() {
     private var _binding: FragmentFavBinding? = null
@@ -36,9 +38,11 @@ class FavFragment : Fragment() {
             view.findNavController().navigate(action)
         })
         binding.recycler.adapter = adapter
-        viewModel.sourceLivedata.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.sourceFlow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
 
     }
 

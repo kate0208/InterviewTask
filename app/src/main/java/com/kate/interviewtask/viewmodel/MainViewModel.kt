@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.kate.interviewtask.database.SourceDao
 import com.kate.interviewtask.database.SourceDatabase
 import com.kate.interviewtask.model.SourceModel
@@ -13,7 +16,13 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val dao: SourceDao) : ViewModel() {
 
-    val sourceLivedata = dao.getAll()
+    val sourceFlow = Pager(
+        PagingConfig(pageSize = 20)
+    ) {
+        dao.getAll()
+    }.flow
+        .cachedIn(viewModelScope)
+
 
     fun updateFav(sourceModel: SourceModel) {
         viewModelScope.launch {

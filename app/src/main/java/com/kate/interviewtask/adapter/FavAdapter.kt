@@ -2,8 +2,8 @@ package com.kate.interviewtask.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kate.interviewtask.R
@@ -14,7 +14,7 @@ class FavAdapter(
     private val favListener: (SourceModel) -> Unit,
     private val imageListener: (SourceModel) -> Unit
 ) :
-    ListAdapter<SourceModel, FavItemViewHolder>(FavDiffUtil()) {
+    PagingDataAdapter<SourceModel, FavItemViewHolder>(MainDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavItemViewHolder {
         val itemBinding = SourceItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -23,7 +23,7 @@ class FavAdapter(
     }
 
     override fun onBindViewHolder(holder: FavItemViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = getItem(position) ?: return
         holder.bind(item)
     }
 
