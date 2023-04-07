@@ -31,13 +31,16 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MainAdapter({
-            viewModel.updateFav(it)
-        }, {
-            val action =
-                MainTabFragmentDirections.actionMainTabFragmentToInfoFragment(it.date)
-            view.findNavController().navigate(action)
-        })
+        val adapter = MainAdapter(
+            {
+                viewModel.updateFav(it)
+            },
+            {
+                val action =
+                    MainTabFragmentDirections.actionMainTabFragmentToInfoFragment(it.date)
+                view.findNavController().navigate(action)
+            }
+        )
         binding.recycler.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.sourceFlow.collectLatest { pagingData ->

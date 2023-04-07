@@ -49,9 +49,9 @@ class FavItemViewHolder(
         }
 
         if (item.fav) {
-            binding.button.text = itemView.context.getString(R.string.fav_remove)
+            binding.button.setImageResource(R.drawable.add_fav)
         } else {
-            binding.button.text = itemView.context.getString(R.string.fav_add)
+            binding.button.setImageResource(R.drawable.remove_fav)
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.kate.interviewtask.R
 import com.kate.interviewtask.databinding.SourceItemBinding
 import com.kate.interviewtask.model.SourceModel
 
@@ -48,9 +49,9 @@ class ItemViewHolder(
         }
 
         if (item.fav) {
-            binding.button.text = "移除最愛"
+            binding.button.setImageResource(R.drawable.add_fav)
         } else {
-            binding.button.text = "加入最愛"
+            binding.button.setImageResource(R.drawable.remove_fav)
         }
     }
 

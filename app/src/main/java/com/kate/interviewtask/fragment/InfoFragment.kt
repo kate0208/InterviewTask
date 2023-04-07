@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.kate.interviewtask.R
 import com.kate.interviewtask.databinding.FragmentInfoBinding
 import com.kate.interviewtask.viewmodel.InfoViewModel
 
@@ -37,6 +38,12 @@ class InfoFragment : Fragment() {
                 binding.description.text = it.description
                 binding.date.text = it.date
                 binding.copyright.text = it.copyright
+
+                if (it.fav) {
+                    binding.button.setImageResource(R.drawable.add_fav)
+                } else {
+                    binding.button.setImageResource(R.drawable.remove_fav)
+                }
             }
         })
 
@@ -46,6 +53,10 @@ class InfoFragment : Fragment() {
             val action =
                 InfoFragmentDirections.actionInfoFragmentToImageViewerFragment(date)
             view.findNavController().navigate(action)
+        }
+
+        binding.button.setOnClickListener {
+            viewModel.updateFav()
         }
     }
 

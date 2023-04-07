@@ -7,8 +7,9 @@ import com.kate.interviewtask.database.SourceDao
 import com.kate.interviewtask.database.SourceDatabase
 import com.kate.interviewtask.fragment.InfoFragmentArgs
 import com.kate.interviewtask.model.SourceModel
+import kotlinx.coroutines.launch
 
-class InfoViewModel(savedStateHandle: SavedStateHandle, dao: SourceDao) : ViewModel() {
+class InfoViewModel(savedStateHandle: SavedStateHandle, private val dao: SourceDao) : ViewModel() {
 
     private val primaryKey = InfoFragmentArgs.fromSavedStateHandle(savedStateHandle).primaryKey
     val source: LiveData<SourceModel> = dao.get(primaryKey)
@@ -23,6 +24,16 @@ class InfoViewModel(savedStateHandle: SavedStateHandle, dao: SourceDao) : ViewMo
 
                 InfoViewModel(savedStateHandle, dao)
             }
+        }
+    }
+
+    fun updateFav() {
+        viewModelScope.launch {
+            val sourceModel = source.value ?: return@launch
+            val favValue = sourceModel.copy(
+                fav = !sourceModel.fav
+            )
+            dao.update(favValue)
         }
     }
 }
